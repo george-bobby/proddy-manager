@@ -15,7 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@liveblocks/client": "^1.9.6",
-    "@liveblocks/core": "^2.14.0",
+    "@liveblocks/core": "^1.9.6",
     "@liveblocks/node": "^1.9.6",
     "@liveblocks/react": "^1.9.6",
     "@liveblocks/react-comments": "^1.9.6",
