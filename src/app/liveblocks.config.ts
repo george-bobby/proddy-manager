@@ -5,11 +5,10 @@ import { createRoomContext } from "@liveblocks/react";
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
   throttle: 100,
-  // Remove resolveUsers as it is invalid
-  resolveMentionSuggestions: async ({ text }) => {
-    const response = await fetch(`/api/users?search=` + text);
-    const users = await response.json();
-    return users.map((user: UserMeta) => user.id);
+  // Removed resolveMentionSuggestions as it was causing a TypeScript error
+  resolveUsers: async ({ userIds }) => {
+    const response = await fetch(`/api/users?ids=` + userIds.join(","));
+    return await response.json();
   },
 });
 
