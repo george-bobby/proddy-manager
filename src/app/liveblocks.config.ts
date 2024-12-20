@@ -1,16 +1,24 @@
 import { createClient } from "@liveblocks/client";
-import {LiveList, LiveObject} from "@liveblocks/core";
+import { LiveList, LiveObject } from "@liveblocks/core";
 import { createRoomContext } from "@liveblocks/react";
 
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
   throttle: 100,
+  resolveUsers: async ({ userIds }) => {
+    const response = await fetch(`/api/users?ids=` + userIds.join(","));
+    return await response.json();
+  },
+  resolveMentionSuggestions: async ({ text }) => {
+    const response = await fetch(`/api/users?search=` + text);
+    const users = await response.json();
+    return users.map((user: UserMeta) => user.id);
+  },
 });
 
-
 export type Presence = {
-  boardId?: null|string;
-  cardId?: null|string;
+  boardId?: null | string;
+  cardId?: null | string;
 };
 
 export type Column = {
@@ -37,8 +45,8 @@ type UserMeta = {
     name: string;
     email: string;
     image: string;
-  },
-}
+  };
+};
 
 type RoomEvent = {};
 
@@ -56,20 +64,6 @@ export const {
   useSelf,
   useOthers,
   useThreads,
-} = createRoomContext<
-  Presence,
-  Storage,
-  UserMeta,
-  RoomEvent,
-  ThreadMetadata
->(client, {
-  resolveUsers: async ({userIds}) => {
-    const response = await fetch(`/api/users?ids=` + userIds.join(','));
-    return await response.json();
-  },
-  resolveMentionSuggestions: async ({text}) => {
-    const response = await fetch(`/api/users?search=`+text);
-    const users = await response.json();
-    return users.map((user:UserMeta) => user.id);
-  },
-});
+} = createRoomContext<Presence, Storage, UserMeta, RoomEvent, ThreadMetadata>(
+  client
+);
