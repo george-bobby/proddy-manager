@@ -17,7 +17,7 @@
     "@liveblocks/client": "^1.9.6",
     "@liveblocks/core": "^1.9.6",
     "@liveblocks/node": "^1.9.6",
-    "@liveblocks/react": "^1.9.6",
+    "@liveblocks/react": "^1.12.0",
     "@liveblocks/react-comments": "^1.9.6",
     "@liveblocks/yjs": "^1.9.6",
     "@tailwindcss/forms": "^0.5.7",
