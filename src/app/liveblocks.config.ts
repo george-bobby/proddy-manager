@@ -5,10 +5,7 @@ import { createRoomContext } from "@liveblocks/react";
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
   throttle: 100,
-  resolveUsers: async ({ userIds }) => {
-    const response = await fetch(`/api/users?ids=` + userIds.join(","));
-    return await response.json();
-  },
+  // Remove resolveUsers as it is invalid
   resolveMentionSuggestions: async ({ text }) => {
     const response = await fetch(`/api/users?search=` + text);
     const users = await response.json();
@@ -64,6 +61,4 @@ export const {
   useSelf,
   useOthers,
   useThreads,
-} = createRoomContext<Presence, Storage, UserMeta, RoomEvent, ThreadMetadata>(
-  client
-);
+} = createRoomContext<Presence, Storage, UserMeta, RoomEvent, ThreadMetadata>(client);
